@@ -55,5 +55,23 @@ def inserting():
     return "Basketball Table Successfully Populated"
 
 # a route to query from the table in database
+@app.route('/db_select')
+def selecting():
+    conn = psycopg2.connect("postgres://catalina_lab_10_db_user:yPo6HWW8sTwX2D7cBG2DcqXyyDLVGg1l@dpg-cl53dnil7jac73cb8vo0-a/catalina_lab_10_db")
+    cur = conn.cursor()
+    cur.execute('''
+       SELECT * FROM Basketball;
+        ''')
+    records = cur.fetchall()
+    conn.close()
+    response_string=""
+    response_string+="<table>"
+    for player in records:
+        response_string+="<tr>"
+        for info in player:
+            response_string+="<td>{}</td>".format(info)
+        response_string+="</tr>"
+    response_string+="</table>"
+    return response_string
 
 # a route to drop the table in database
