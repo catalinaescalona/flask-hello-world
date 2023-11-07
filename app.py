@@ -7,10 +7,23 @@ import psycopg2
 
 app = Flask(__name__)
 
-# starter route (from Render's "Deploy a Flask App" tutorial)
+# index route listing all possible routes for lab 10
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    resp = '''
+        <h2>Author: Catalina Escalona</h2>
+        <h2>Date: 2023-11-07</h2>
+        <h2>Lab 10, CSPB 3308, Fall 2023</h2>
+        <br>
+        <h3>All Routes Supported:</h3>
+        /<br>
+        /db_test<br>
+        /db_create<br>
+        /db_insert<br>
+        /db_select<br>
+        /db_drop<br>
+        '''
+    return resp
 
 # a route to check if database connection works
 @app.route('/db_test')
@@ -75,3 +88,13 @@ def selecting():
     return response_string
 
 # a route to drop the table in database
+@app.route('/db_drop')
+def dropping():
+    conn = psycopg2.connect("postgres://catalina_lab_10_db_user:yPo6HWW8sTwX2D7cBG2DcqXyyDLVGg1l@dpg-cl53dnil7jac73cb8vo0-a/catalina_lab_10_db")
+    cur = conn.cursor()
+    cur.execute('''
+       DROP TABLE Basketball;
+        ''')
+    conn.commit()
+    conn.close()
+    return "Basketball Table Successfully Dropped"
