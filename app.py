@@ -11,12 +11,10 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     resp = '''
-        Hello, World!
-        <br>
-        Author: Catalina Escalona
-        Date: 2023-11-07
-        Lab 10, CSPB 3308, Fall 2023
-        <br>
+        Hello, World!<br><br>
+        Author: Catalina Escalona<br>
+        Date: 2023-11-07<br>
+        Lab 10, CSPB 3308, Fall 2023<br><br>
         <h3>All Routes Supported:</h3>
         /<br>
         /db_test<br>
